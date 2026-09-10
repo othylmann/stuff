@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>stuff</title>
+<style>
+  :root{color-scheme:light dark; --ink:#0f1a1d; --muted:#66797f; --bg:#eef2f2; --accent:#0c5b6b}
+  @media (prefers-color-scheme:dark){
+    :root{--ink:#e6eded; --muted:#84979c; --bg:#0b1113; --accent:#9fdfea}
+  }
+  body{margin:0; background:var(--bg); color:var(--ink); font:16px/1.6 system-ui,-apple-system,sans-serif}
+  main{max-width:44rem; margin:0 auto; padding:14vh 1.5rem 4rem}
+  h1{font-size:2rem; letter-spacing:-.02em; margin:0 0 .25rem}
+  p{color:var(--muted); margin:0 0 2rem}
+  ul{list-style:none; padding:0; margin:0}
+  li{padding:.9rem 0; border-top:1px solid color-mix(in srgb, var(--muted) 30%, transparent)}
+  a{color:var(--accent); font-weight:600; text-decoration:none}
+  a:hover{text-decoration:underline}
+  small{display:block; color:var(--muted); font-weight:400}
+</style>
+</head>
+<body>
+<main>
+  <h1>stuff</h1>
+  <p>Assorted published reports and data.</p>
+  <ul>
+    <li>
+      <a href="neonephos/KPIs/">Neonephos project KPIs</a>
+      <small>Contributor concentration, health scores, activity and commit time zones
+             across the seven Neonephos Foundation projects · 10 September 2026</small>
+    </li>
+  </ul>
+</main>
+</body>
+</html>
