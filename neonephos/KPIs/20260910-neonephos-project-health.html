@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root{color-scheme:light dark}
+  body{margin:0;font:14px/1.5 system-ui,-apple-system,sans-serif;background:#fff}
+  img{max-width:100%}
+  [hidden]{display:none!important}
+</style>
+<title>Neonephos Project Health</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* ---------- tokens: light is the base, every colour declared here ---------- */
+:root{
+  --bg:#eef2f2; --surface:#ffffff; --surface-2:#f6f9f9; --surface-3:#eaf0f1;
+  --ink:#0f1a1d; --ink-2:#39494e; --muted:#66797f;
+  --border:#d9e2e3; --border-strong:#bfcdd0;
+  --accent:#1a8296; --accent-ink:#0c5b6b; --accent-wash:#e2f0f2;
+
+  /* sequential rank ramp — validated: CVD + normal-vision separation pass */
+  --r1:#083f4a; --r2:#1a8296; --r3:#6dbac6; --r4:#cfe4e7;
+  --on-r1:#eaf6f8; --on-r2:#f0fafb; --on-r3:#06333c; --on-r4:#08343d;
+
+  /* status — reserved for concentration state, never used as a series colour */
+  --ok:#31905a; --warn:#e0a112; --risk:#b02f3f;
+  --ok-wash:#e4f2ea; --warn-wash:#fbf1d9; --risk-wash:#f8e6e9;
+  --ok-ink:#20653e; --warn-ink:#8a610a; --risk-ink:#8c2532;
+
+  --band:#1a829614;
+  --shadow:0 1px 2px #0f1a1d0d, 0 6px 18px -12px #0f1a1d26;
+  --radius:10px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0b1113; --surface:#131b1e; --surface-2:#182126; --surface-3:#1e282d;
+    --ink:#e6eded; --ink-2:#b3c3c6; --muted:#84979c;
+    --border:#243135; --border-strong:#33454b;
+    --accent:#52bfd3; --accent-ink:#9fdfea; --accent-wash:#123037;
+
+    --r1:#b0ecf6; --r2:#52bfd3; --r3:#2288a0; --r4:#145a68;
+    --on-r1:#06272e; --on-r2:#05242b; --on-r3:#eaf8fb; --on-r4:#ddf1f5;
+
+    --ok:#4bb37a; --warn:#f0b731; --risk:#e8697a;
+    --ok-wash:#12301f; --warn-wash:#332711; --risk-wash:#361a20;
+    --ok-ink:#7fd3a2; --warn-ink:#f7cf74; --risk-ink:#f5a1ac;
+
+    --band:#52bfd31f;
+    --shadow:0 1px 2px #0006, 0 8px 24px -14px #000a;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0b1113; --surface:#131b1e; --surface-2:#182126; --surface-3:#1e282d;
+  --ink:#e6eded; --ink-2:#b3c3c6; --muted:#84979c;
+  --border:#243135; --border-strong:#33454b;
+  --accent:#52bfd3; --accent-ink:#9fdfea; --accent-wash:#123037;
+
+  --r1:#b0ecf6; --r2:#52bfd3; --r3:#2288a0; --r4:#145a68;
+  --on-r1:#06272e; --on-r2:#05242b; --on-r3:#eaf8fb; --on-r4:#ddf1f5;
+
+  --ok:#4bb37a; --warn:#f0b731; --risk:#e8697a;
+  --ok-wash:#12301f; --warn-wash:#332711; --risk-wash:#361a20;
+  --ok-ink:#7fd3a2; --warn-ink:#f7cf74; --risk-ink:#f5a1ac;
+
+  --band:#52bfd31f;
+  --shadow:0 1px 2px #0006, 0 8px 24px -14px #000a;
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.55; margin:0;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1120px; margin:0 auto; padding:36px 24px 72px;
+  display:flex; flex-direction:column; gap:30px}
+h1,h2,h3{font-family:Archivo,"IBM Plex Sans",sans-serif; text-wrap:balance; margin:0}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums}
+.num{font-family:"IBM Plex Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums; font-weight:500}
+a{color:var(--accent-ink)}
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:4px}
+
+/* ---------- masthead ---------- */
+.masthead{display:flex; flex-direction:column; gap:12px; padding-bottom:4px}
+.eyebrow{font-size:11.5px; font-weight:600; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--accent-ink); display:flex; align-items:center; gap:9px}
+.eyebrow::before{content:""; width:22px; height:2px; background:var(--accent); border-radius:2px}
+h1{font-size:clamp(29px,4.4vw,42px); font-weight:700; letter-spacing:-.022em; line-height:1.1}
+.standfirst{margin:0; max-width:66ch; color:var(--ink-2); font-size:16.5px}
+.provenance{display:flex; flex-wrap:wrap; gap:0; margin:8px 0 0; padding:0;
+  border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; background:var(--surface)}
+.provenance>div{padding:9px 15px; border-right:1px solid var(--border); flex:1 1 auto; min-width:150px}
+.provenance>div:last-child{border-right:0}
+.provenance dt{font-size:10.5px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
+.provenance dd{margin:2px 0 0; font-size:13.5px; color:var(--ink)}
+
+/* ---------- findings ---------- */
+.findings{display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:14px}
+.finding{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+  padding:16px 17px 15px; display:flex; flex-direction:column; gap:5px; box-shadow:var(--shadow)}
+.finding .big{font-family:Archivo,sans-serif; font-weight:700; font-size:34px; line-height:1;
+  letter-spacing:-.02em; font-variant-numeric:tabular-nums}
+.finding .big small{font-size:17px; font-weight:600; color:var(--muted); letter-spacing:0}
+.finding .lede{font-size:13.5px; font-weight:600; color:var(--ink)}
+.finding .sub{font-size:12.5px; color:var(--muted); line-height:1.45}
+.finding.is-risk .big{color:var(--risk)}
+.finding.is-accent .big{color:var(--accent-ink)}
+
+/* ---------- panels ---------- */
+.panel{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+  box-shadow:var(--shadow); overflow:hidden}
+.panel-head{padding:17px 20px 15px; border-bottom:1px solid var(--border);
+  display:flex; flex-wrap:wrap; gap:4px 18px; align-items:baseline}
+.panel-head h2{font-size:17.5px; font-weight:600; letter-spacing:-.012em}
+.panel-head p{margin:0; font-size:13px; color:var(--muted); flex:1 1 300px; min-width:0}
+.panel-body{padding:18px 20px 20px}
+.scroller{overflow-x:auto}
+
+/* ---------- comparison table ---------- */
+table{border-collapse:collapse; width:100%; min-width:920px; font-size:13px}
+thead th{font-size:10.5px; font-weight:600; letter-spacing:.085em; text-transform:uppercase;
+  color:var(--muted); text-align:right; padding:12px 8px; border-bottom:1px solid var(--border-strong);
+  white-space:nowrap; vertical-align:bottom}
+thead th:first-child, tbody td:first-child{text-align:left; padding-left:20px}
+thead th.l, tbody td.l{text-align:left}
+tbody td{padding:11px 8px; border-bottom:1px solid var(--border); text-align:right; vertical-align:middle}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover td{background:var(--surface-2)}
+td:last-child, th:last-child{padding-right:20px}
+.proj{display:flex; flex-direction:column; gap:1px; min-width:132px}
+.proj b{font-weight:600; font-size:14px; letter-spacing:-.006em}
+.proj a{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--muted); text-decoration:none}
+.proj a:hover{color:var(--accent-ink); text-decoration:underline}
+
+/* concentration cell */
+.conc{display:flex; align-items:center; gap:9px; justify-content:flex-end; min-width:248px}
+.conc .who{flex:1; min-width:92px; display:flex; flex-direction:column;
+  align-items:flex-start; gap:3px; font-weight:500; line-height:1.2}
+.conc .who .chip{font-size:10px; padding:2px 7px}
+.conc .val{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums;
+  font-weight:600; font-size:13.5px; width:50px; text-align:right}
+.gauge{position:relative; width:90px; height:16px; background:var(--surface-3);
+  border-radius:3px; overflow:hidden; flex:none}
+.gauge .fill{position:absolute; inset:0 auto 0 0; border-radius:3px 2px 2px 3px}
+.gauge .tick{position:absolute; top:0; bottom:0; width:1px; background:var(--surface); opacity:.9}
+.gauge .tick.t75{background:var(--border-strong); opacity:1}
+.f-ok{background:var(--ok)} .f-warn{background:var(--warn)} .f-risk{background:var(--risk)}
+
+.chip{display:inline-flex; align-items:center; gap:5px; font-size:11px; font-weight:600;
+  padding:3px 8px; border-radius:999px; white-space:nowrap; letter-spacing:.01em}
+.chip::before{content:""; width:6px; height:6px; border-radius:50%; background:currentColor; flex:none}
+.chip.ok{background:var(--ok-wash); color:var(--ok-ink)}
+.chip.warn{background:var(--warn-wash); color:var(--warn-ink)}
+.chip.risk{background:var(--risk-wash); color:var(--risk-ink)}
+.chip.plain{background:var(--surface-3); color:var(--ink-2)}
+.chip.plain::before{display:none}
+
+.score{display:inline-flex; align-items:baseline; gap:2px; font-family:"IBM Plex Mono",monospace;
+  font-variant-numeric:tabular-nums; font-weight:600; font-size:14.5px}
+.score s{text-decoration:none; font-size:10px; color:var(--muted); font-weight:400}
+.dash{color:var(--muted)}
+.tzcell{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums;
+  font-size:12.5px; white-space:nowrap}
+.tzcell em{font-style:normal; color:var(--muted); font-size:11px}
+sup.fn{font-size:9.5px; color:var(--accent-ink); font-family:"IBM Plex Sans",sans-serif;
+  font-weight:700; margin-left:2px; cursor:help}
+
+/* ---------- composition ---------- */
+.comp{display:flex; flex-direction:column; gap:13px}
+.comp-row{display:grid; grid-template-columns:168px 1fr; gap:14px; align-items:center}
+.comp-row .nm{font-size:13px; font-weight:600; text-align:right; line-height:1.25}
+.comp-row .nm span{display:block; font-weight:400; font-size:11px; color:var(--muted);
+  font-family:"IBM Plex Mono",monospace}
+.stack{display:flex; gap:2px; height:32px; border-radius:4px; overflow:hidden}
+.seg{display:flex; align-items:center; padding:0 8px; font-size:11.5px; font-weight:600;
+  overflow:hidden; white-space:nowrap; text-overflow:clip; min-width:3px;
+  transition:filter .12s ease}
+.seg:hover{filter:brightness(1.08)}
+.s1{background:var(--r1); color:var(--on-r1)}
+.s2{background:var(--r2); color:var(--on-r2)}
+.s3{background:var(--r3); color:var(--on-r3)}
+.s4{background:var(--r4); color:var(--on-r4)}
+.legend{display:flex; flex-wrap:wrap; gap:6px 16px; margin-top:16px; padding-top:14px;
+  border-top:1px solid var(--border); font-size:12px; color:var(--ink-2)}
+.legend span{display:inline-flex; align-items:center; gap:6px}
+.legend i{width:11px; height:11px; border-radius:2.5px; flex:none}
+
+/* ---------- meridian ---------- */
+.meridian{width:100%; height:auto; display:block; overflow:visible}
+.meridian text{font-family:"IBM Plex Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums}
+.m-name{font-family:"IBM Plex Sans",sans-serif; font-size:12px; font-weight:600; fill:var(--ink)}
+.m-axis{font-size:10px; fill:var(--muted)}
+.m-peak{font-size:10.5px; fill:var(--muted)}
+.m-peak-n{fill:var(--ink); font-weight:600}
+.m-band-label{font-family:"IBM Plex Sans",sans-serif; font-size:9.5px; font-weight:600;
+  fill:var(--accent-ink); letter-spacing:.06em}
+.m-base{stroke:var(--border-strong); stroke-width:1}
+.m-bar{fill:var(--accent)}
+.m-bar:hover{fill:var(--accent-ink)}
+
+/* ---------- method ---------- */
+.notes{display:grid; grid-template-columns:repeat(auto-fit,minmax(255px,1fr)); gap:16px 26px}
+.note h3{font-size:12.5px; font-weight:600; letter-spacing:.04em; text-transform:uppercase;
+  color:var(--accent-ink); margin-bottom:5px}
+.note p{margin:0; font-size:13px; color:var(--ink-2); line-height:1.55}
+.note p+p{margin-top:7px}
+.note code{font-family:"IBM Plex Mono",monospace; font-size:12px; background:var(--surface-3);
+  padding:1px 5px; border-radius:4px; color:var(--ink)}
+.caveat{border-left:2px solid var(--warn); padding-left:12px}
+
+footer{font-size:12px; color:var(--muted); text-align:center; padding-top:2px}
+
+/* ---------- tooltip ---------- */
+#tip{position:fixed; z-index:50; pointer-events:none; opacity:0; transition:opacity .1s ease;
+  background:var(--ink); color:var(--bg); font-size:12px; line-height:1.4; padding:7px 10px;
+  border-radius:6px; max-width:250px; box-shadow:0 4px 14px #0004}
+#tip.on{opacity:1}
+#tip b{font-weight:600}
+#tip .t-mono{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important; animation:none!important}}
+@media (max-width:720px){
+  .wrap{padding:26px 15px 56px; gap:24px}
+  .comp-row{grid-template-columns:1fr; gap:5px}
+  .comp-row .nm{text-align:left}
+  .panel-body{padding:15px}
+}
+</style>
+<style>.m-n{fill:var(--muted); font-size:9.5px}</style>
+<style>
+/* ---------- window switcher ---------- */
+.switch{display:flex; flex-wrap:wrap; align-items:center; gap:12px 16px; margin-top:4px}
+.wseg{display:inline-flex; background:var(--surface-3); border:1px solid var(--border);
+  border-radius:8px; padding:3px; gap:2px}
+.wseg button{appearance:none; border:0; background:transparent; cursor:pointer;
+  font-family:"IBM Plex Sans",sans-serif; font-size:12.5px; font-weight:600; color:var(--ink-2);
+  padding:6px 13px; border-radius:6px; white-space:nowrap; transition:background .12s, color .12s}
+.wseg button:hover{color:var(--ink)}
+.wseg button[aria-pressed="true"]{background:var(--surface); color:var(--accent-ink);
+  box-shadow:0 1px 2px #0000001a}
+.switch .when{font-size:12.5px; color:var(--muted)}
+.switch .when b{color:var(--ink-2); font-weight:500}
+.seg-label{font-size:10.5px; font-weight:600; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--muted)}
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">Neonephos Foundation</div>
+    <h1>Who actually builds these seven projects?</h1>
+    <p class="standfirst">Contributor concentration, LFX health scores, development activity and
+      the working hours behind every commit — across all seven Neonephos projects, so a single
+      dominant vendor shows up as a number rather than a hunch.</p>
+
+    <div class="switch">
+      <span class="seg-label">Window</span>
+      <div class="wseg" role="group" aria-label="Time window" id="wseg"></div>
+      <span class="when" id="when"></span>
+    </div>
+
+    <dl class="provenance">
+      <div><dt>Primary source</dt><dd>LFX Insights API <span class="mono" style="color:var(--muted)">· 6 of 7 projects</span></dd></div>
+      <div><dt>Time zones &amp; Garden Linux</dt><dd>Git history + GitHub API</dd></div>
+      <div><dt>Retrieved</dt><dd class="mono">10 September 2026</dd></div>
+      <div><dt>Repositories read</dt><dd class="mono" id="repocount">—</dd></div>
+    </dl>
+  </header>
+
+  <section class="findings" id="findings"></section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <h2>Project by project</h2>
+      <p>Ordered by all-time concentration, so rows keep their place as you change the window.</p>
+    </div>
+    <div class="scroller">
+      <table id="tbl">
+        <thead>
+          <tr>
+            <th class="l">Project</th>
+            <th class="l">Top company &amp; share of all contribution</th>
+            <th>Companies</th>
+            <th>People</th>
+            <th>Commits</th>
+            <th>PRs&nbsp;merged</th>
+            <th>Health</th>
+            <th>License</th>
+            <th>Peak&nbsp;hour&nbsp;(UTC)</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <h2>Contribution split by company</h2>
+      <p>Three largest companies plus everyone else. Segments under 6% are unlabelled — hover for the figure.</p>
+    </div>
+    <div class="panel-body">
+      <div class="comp" id="comp"></div>
+      <div class="legend">
+        <span><i style="background:var(--r1)"></i> Largest company</span>
+        <span><i style="background:var(--r2)"></i> 2nd</span>
+        <span><i style="background:var(--r3)"></i> 3rd</span>
+        <span><i style="background:var(--r4)"></i> All other companies</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <h2>What time zone is the code written in?</h2>
+      <p>Every human commit across all of a project's repositories, placed at the UTC offset its
+         author's own machine recorded. CI runners and release bots are excluded.</p>
+    </div>
+    <div class="panel-body"><div class="scroller" id="mer"></div></div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head"><h2>How to read this</h2></div>
+    <div class="panel-body">
+      <div class="notes">
+        <div class="note">
+          <h3>Concentration thresholds</h3>
+          <p>A common open-source governance rule of thumb: one company below <b>50%</b> of
+             contribution is <b>balanced</b>; <b>50–75%</b> is <b>concentrated</b>; at or above
+             <b>75%</b> the project is effectively <b>single-vendor</b>. The ticks on each gauge
+             mark 50% and 75%.</p>
+        </div>
+        <div class="note caveat">
+          <h3>SAP entities were merged</h3>
+          <p>LFX Insights records <code>SAP</code>, <code>SAP SE</code>,
+             <code>SAP Converged Cloud</code> and <code>SAP Cloud Infrastructure</code> as
+             separate organisations. This page counts them as one company, which raises several
+             projects' top share substantially. Rows where the merge changed the number are
+             marked <sup class="fn">M</sup> — hover to see LFX's raw figure.</p>
+        </div>
+        <div class="note caveat">
+          <h3>Garden Linux is not in LFX Insights</h3>
+          <p>It exists there only as an <i>organisation</i>, not as a tracked project, so it has
+             no LFX health score. Its figures come from the GitHub API and the git history of all
+             227 repositories in the <code>gardenlinux</code> org, with company attribution
+             derived from commit-author email domains — a coarser method than LFX's affiliation
+             data. Free-mail and <code>noreply</code> addresses can't be attributed to a company
+             and are left out of its percentages.</p>
+        </div>
+        <div class="note">
+          <h3>Windows are real API queries</h3>
+          <p>Each window re-queries LFX with <code>startDate</code> / <code>endDate</code>, so
+             these are the API's own figures, not a client-side slice. Short windows on quiet
+             projects rest on few commits — Luigi's 100% is 456 commits over a year, not a
+             sudden takeover.</p>
+        </div>
+        <div class="note">
+          <h3>Health score</h3>
+          <p>LFX's own 0–100 composite, weighing contributor base, popularity, development
+             practice and security posture. Hover a score to see the four parts. It is a measure
+             of project practice, not of code quality.</p>
+        </div>
+        <div class="note">
+          <h3>Time zones</h3>
+          <p>Git stores the author's local UTC offset with every commit; the GitHub API discards
+             it, so these come from cloned history — all repositories per project, deduplicated
+             by commit hash.</p>
+          <p>Release publishers, CI runners and service accounts commit with no time zone set and
+             would otherwise pile up a fake UTC+00:00 workforce, so they are filtered out by
+             author name and address. An offset is a hint about working hours, not a reliable
+             location.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>Neonephos Foundation · seven projects · data retrieved 10 September 2026 from LFX Insights and GitHub</footer>
+</div>
+
+<div id="tip" role="tooltip"></div>
+
+<script>
+const RAW = {"windows":[{"key":"all","label":"All time"},{"key":"m12","label":"Last 12 months"},{"key":"m3","label":"Last 3 months"}],"projects":[{"name":"Luigi","repo":"luigi-project/luigi","lfxSlug":"luigi","source":"lfx","w":{"all":{"score":78,"breakdown":{"contributorPercentage":50,"popularityPercentage":93,"developmentPercentage":88,"securityPercentage":82},"orgs":[{"n":"SAP","p":87.1},{"n":"Coresystems","p":10.3},{"n":"Box, Inc.","p":1.5}],"orgCount":20,"rawTopOrg":"SAP","rawTopOrgPct":62.01,"contributors":170,"commits":24384,"prMerged":2048,"topOrg":"SAP","topOrgPct":87.1,"merged":true,"othersPct":1.1,"risk":"single","riskLabel":"Single-vendor","tz":{"total":2828,"hist":{"-420":1,"-300":1,"-180":1,"60":1067,"120":1734,"180":11,"210":1,"300":1,"330":8,"420":1,"480":2},"euPct":99.4,"peak":120,"peakPct":61.3,"repos":5,"excluded":523}},"m12":{"score":68,"breakdown":{"contributorPercentage":50,"popularityPercentage":53,"developmentPercentage":88,"securityPercentage":82},"orgs":[{"n":"SAP","p":100.0},{"n":"OpenMFP","p":0.0}],"orgCount":2,"rawTopOrg":"SAP SE","rawTopOrgPct":53.72,"contributors":24,"commits":2965,"prMerged":635,"topOrg":"SAP","topOrgPct":100.0,"merged":true,"othersPct":0.0,"risk":"single","riskLabel":"Single-vendor","tz":{"total":456,"hist":{"-180":1,"60":142,"120":309,"180":1,"300":1,"330":1,"480":1},"euPct":99.1,"peak":120,"peakPct":67.8,"repos":5,"excluded":232}},"m3":{"score":59,"breakdown":{"contributorPercentage":50,"popularityPercentage":7,"developmentPercentage":96,"securityPercentage":82},"orgs":[{"n":"SAP","p":100.0}],"orgCount":1,"rawTopOrg":"SAP SE","rawTopOrgPct":64.17,"contributors":16,"commits":553,"prMerged":195,"topOrg":"SAP","topOrgPct":100.0,"merged":true,"othersPct":0.0,"risk":"single","riskLabel":"Single-vendor","tz":{"total":158,"hist":{"-180":1,"120":155,"300":1,"330":1},"euPct":98.1,"peak":120,"peakPct":98.1,"repos":5,"excluded":60}}},"license":"Apache-2.0","repoCount":5},{"name":"IronCore","repo":"ironcore-dev/ironcore","lfxSlug":"ironcore","source":"lfx","w":{"all":{"score":72,"breakdown":{"contributorPercentage":65,"popularityPercentage":53,"developmentPercentage":88,"securityPercentage":82},"orgs":[{"n":"SAP","p":86.4},{"n":"LOVOO","p":3.6},{"n":"Individual - No Account","p":3.4}],"orgCount":43,"rawTopOrg":"SAP SE","rawTopOrgPct":86.32,"contributors":266,"commits":17636,"prMerged":8648,"topOrg":"SAP","topOrgPct":86.4,"merged":false,"othersPct":6.6,"risk":"single","riskLabel":"Single-vendor","tz":{"total":7555,"hist":{"-420":12,"-360":1,"-300":2,"-240":5,"0":283,"60":2377,"120":4128,"180":190,"330":550,"480":7},"euPct":92.4,"peak":120,"peakPct":54.6,"repos":45,"excluded":5446}},"m12":{"score":71,"breakdown":{"contributorPercentage":65,"popularityPercentage":47,"developmentPercentage":88,"securityPercentage":82},"orgs":[{"n":"SAP","p":77.3},{"n":"LOVOO","p":8.7},{"n":"KubeForge","p":6.0}],"orgCount":28,"rawTopOrg":"SAP SE","rawTopOrgPct":77.22,"contributors":173,"commits":5182,"prMerged":2972,"topOrg":"SAP","topOrgPct":77.3,"merged":false,"othersPct":8.0,"risk":"single","riskLabel":"Single-vendor","tz":{"total":2290,"hist":{"-360":1,"-300":1,"-240":1,"0":54,"60":670,"120":1486,"180":9,"330":62,"480":6},"euPct":96.9,"peak":120,"peakPct":64.9,"repos":45,"excluded":1507}},"m3":{"score":71,"breakdown":{"contributorPercentage":65,"popularityPercentage":40,"developmentPercentage":96,"securityPercentage":82},"orgs":[{"n":"SAP","p":89.8},{"n":"Individual - No Account","p":4.4},{"n":"LOVOO","p":1.4}],"orgCount":14,"rawTopOrg":"SAP SE","rawTopOrgPct":89.82,"contributors":116,"commits":1578,"prMerged":1102,"topOrg":"SAP","topOrgPct":89.8,"merged":false,"othersPct":4.4,"risk":"single","riskLabel":"Single-vendor","tz":{"total":912,"hist":{"-240":1,"0":4,"60":36,"120":836,"180":8,"330":25,"480":2},"euPct":96.9,"peak":120,"peakPct":91.7,"repos":45,"excluded":505}}},"license":"Apache-2.0","repoCount":45},{"name":"Open Component Model","repo":"open-component-model/open-component-model","lfxSlug":"open-component-model","source":"lfx","w":{"all":{"score":71,"breakdown":{"contributorPercentage":60,"popularityPercentage":47,"developmentPercentage":88,"securityPercentage":87},"orgs":[{"n":"SAP","p":75.1},{"n":"Kubermatic","p":11.8},{"n":"Garden Linux","p":5.4}],"orgCount":21,"rawTopOrg":"SAP SE","rawTopOrgPct":74.91,"contributors":166,"commits":15446,"prMerged":4951,"topOrg":"SAP","topOrgPct":75.1,"merged":false,"othersPct":7.7,"risk":"single","riskLabel":"Single-vendor","tz":{"total":5175,"hist":{"-480":3,"-420":2,"0":93,"60":1881,"120":3165,"180":30,"330":1},"euPct":99.9,"peak":120,"peakPct":61.2,"repos":7,"excluded":5375}},"m12":{"score":67,"breakdown":{"contributorPercentage":60,"popularityPercentage":33,"developmentPercentage":88,"securityPercentage":87},"orgs":[{"n":"SAP","p":72.2},{"n":"Kubermatic","p":15.5},{"n":"Garden Linux","p":5.4}],"orgCount":15,"rawTopOrg":"SAP SE","rawTopOrgPct":72.16,"contributors":97,"commits":3973,"prMerged":2257,"topOrg":"SAP","topOrgPct":72.2,"merged":false,"othersPct":6.9,"risk":"concentrated","riskLabel":"Concentrated","tz":{"total":1663,"hist":{"-480":2,"0":2,"60":740,"120":911,"180":8},"euPct":99.9,"peak":120,"peakPct":54.8,"repos":7,"excluded":2883}},"m3":{"score":63,"breakdown":{"contributorPercentage":60,"popularityPercentage":13,"developmentPercentage":92,"securityPercentage":87},"orgs":[{"n":"SAP","p":61.7},{"n":"Kubermatic","p":18.4},{"n":"Matthias Bruns","p":14.1}],"orgCount":10,"rawTopOrg":"SAP SE","rawTopOrgPct":61.74,"contributors":50,"commits":886,"prMerged":493,"topOrg":"SAP","topOrgPct":61.7,"merged":false,"othersPct":5.8,"risk":"concentrated","riskLabel":"Concentrated","tz":{"total":380,"hist":{"120":377,"180":3},"euPct":100.0,"peak":120,"peakPct":99.2,"repos":7,"excluded":907}}},"license":"Apache-2.0","repoCount":7},{"name":"Greenhouse","repo":"cloudoperators/greenhouse","lfxSlug":"greenhouse","source":"lfx","w":{"all":{"score":77,"breakdown":{"contributorPercentage":70,"popularityPercentage":73,"developmentPercentage":84,"securityPercentage":79},"orgs":[{"n":"SAP","p":72.6},{"n":"MphasiS BFL Ltd.","p":9.2},{"n":"Gymnasion","p":5.8}],"orgCount":15,"rawTopOrg":"SAP SE","rawTopOrgPct":56.8,"contributors":186,"commits":17303,"prMerged":3824,"topOrg":"SAP","topOrgPct":72.6,"merged":true,"othersPct":12.4,"risk":"concentrated","riskLabel":"Concentrated","tz":{"total":10193,"hist":{"-360":4,"-300":1,"0":3565,"60":2506,"120":4088,"180":1,"240":3,"300":5,"330":20},"euPct":99.7,"peak":120,"peakPct":40.1,"repos":3,"excluded":1531}},"m12":{"score":73,"breakdown":{"contributorPercentage":70,"popularityPercentage":60,"developmentPercentage":84,"securityPercentage":79},"orgs":[{"n":"SAP","p":75.5},{"n":"MphasiS BFL Ltd.","p":13.4},{"n":"Freiberuflich","p":7.9}],"orgCount":11,"rawTopOrg":"SAP SE","rawTopOrgPct":61.83,"contributors":155,"commits":2777,"prMerged":1498,"topOrg":"SAP","topOrgPct":75.5,"merged":true,"othersPct":3.2,"risk":"single","riskLabel":"Single-vendor","tz":{"total":2698,"hist":{"-360":4,"-300":1,"0":1169,"60":541,"120":975,"180":1,"240":3,"330":4},"euPct":99.6,"peak":0,"peakPct":43.3,"repos":3,"excluded":855}},"m3":{"score":65,"breakdown":{"contributorPercentage":70,"popularityPercentage":13,"developmentPercentage":96,"securityPercentage":79},"orgs":[{"n":"SAP","p":67.8},{"n":"Freiberuflich","p":14.8},{"n":"MphasiS BFL Ltd.","p":11.2}],"orgCount":8,"rawTopOrg":"SAP SE","rawTopOrgPct":62.1,"contributors":116,"commits":802,"prMerged":391,"topOrg":"SAP","topOrgPct":67.8,"merged":true,"othersPct":6.2,"risk":"concentrated","riskLabel":"Concentrated","tz":{"total":710,"hist":{"-360":4,"0":256,"120":444,"180":1,"240":3,"330":2},"euPct":98.7,"peak":120,"peakPct":62.5,"repos":3,"excluded":255}}},"license":"Apache-2.0","repoCount":3},{"name":"Garden Linux","repo":"gardenlinux/gardenlinux","lfxSlug":null,"source":"github","w":{"all":{"orgs":[{"n":"SAP","p":64.4},{"n":"B1 Systems","p":22.3},{"n":"credativ","p":10.0}],"orgCount":25,"contributors":110,"commits":4170,"attributablePct":67,"score":null,"breakdown":{},"rawTopOrg":null,"rawTopOrgPct":null,"prMerged":2638,"topOrg":"SAP","topOrgPct":64.4,"merged":false,"othersPct":3.3,"risk":"concentrated","riskLabel":"Concentrated","tz":{"total":13754,"hist":{"-480":17,"-420":30,"-360":2,"-300":6,"-240":30,"-180":7,"0":1178,"60":4658,"120":7370,"180":95,"240":1,"330":31,"480":135,"540":1,"660":1,"720":150,"780":42},"euPct":96.7,"peak":120,"peakPct":53.6,"repos":227,"excluded":4189}},"m12":{"orgs":[{"n":"B1 Systems","p":88.1},{"n":"SAP","p":11.9}],"orgCount":2,"contributors":23,"commits":866,"attributablePct":56,"score":null,"breakdown":{},"rawTopOrg":null,"rawTopOrgPct":null,"prMerged":703,"topOrg":"B1 Systems","topOrgPct":88.1,"merged":false,"othersPct":0.0,"risk":"single","riskLabel":"Single-vendor","tz":{"total":4868,"hist":{"0":190,"60":1877,"120":2753,"180":27,"330":21},"euPct":99.6,"peak":120,"peakPct":56.6,"repos":227,"excluded":2148}},"m3":{"orgs":[{"n":"B1 Systems","p":96.8},{"n":"SAP","p":3.2}],"orgCount":2,"contributors":14,"commits":217,"attributablePct":72,"score":null,"breakdown":{},"rawTopOrg":null,"rawTopOrgPct":null,"prMerged":120,"topOrg":"B1 Systems","topOrgPct":96.8,"merged":false,"othersPct":0.0,"risk":"single","riskLabel":"Single-vendor","tz":{"total":1373,"hist":{"0":58,"60":23,"120":1250,"180":21,"330":21},"euPct":98.5,"peak":120,"peakPct":91.0,"repos":227,"excluded":664}}},"license":"Apache-2.0","repoCount":227},{"name":"Platform Mesh","repo":"platform-mesh/platform-mesh","lfxSlug":"platform-mesh","source":"lfx","w":{"all":{"score":72,"breakdown":{"contributorPercentage":60,"popularityPercentage":53,"developmentPercentage":84,"securityPercentage":89},"orgs":[{"n":"SAP","p":61.9},{"n":"CST","p":15.9},{"n":"Kubermatic","p":8.4}],"orgCount":19,"rawTopOrg":"SAP SE","rawTopOrgPct":61.86,"contributors":139,"commits":18572,"prMerged":2930,"topOrg":"SAP","topOrgPct":61.9,"merged":false,"othersPct":13.8,"risk":"concentrated","riskLabel":"Concentrated","tz":{"total":8000,"hist":{"-480":16,"-420":5,"-300":2,"-240":26,"0":390,"60":1880,"120":4088,"180":1335,"240":201,"780":57},"euPct":96.2,"peak":120,"peakPct":51.1,"repos":47,"excluded":13418}},"m12":{"score":72,"breakdown":{"contributorPercentage":60,"popularityPercentage":53,"developmentPercentage":84,"securityPercentage":89},"orgs":[{"n":"SAP","p":61.5},{"n":"CST","p":15.0},{"n":"Kubermatic","p":9.5}],"orgCount":18,"rawTopOrg":"SAP SE","rawTopOrgPct":61.53,"contributors":125,"commits":15845,"prMerged":2760,"topOrg":"SAP","topOrgPct":61.5,"merged":false,"othersPct":14.0,"risk":"concentrated","riskLabel":"Concentrated","tz":{"total":6139,"hist":{"-420":5,"0":355,"60":1653,"120":2881,"180":1021,"240":167,"780":57},"euPct":96.3,"peak":120,"peakPct":46.9,"repos":47,"excluded":11875}},"m3":{"score":72,"breakdown":{"contributorPercentage":65,"popularityPercentage":40,"developmentPercentage":92,"securityPercentage":89},"orgs":[{"n":"SAP","p":46.0},{"n":"Kubermatic","p":21.5},{"n":"CST","p":11.1}],"orgCount":16,"rawTopOrg":"SAP SE","rawTopOrgPct":46.05,"contributors":84,"commits":3630,"prMerged":793,"topOrg":"SAP","topOrgPct":46.0,"merged":false,"othersPct":21.4,"risk":"balanced","riskLabel":"Balanced","tz":{"total":1875,"hist":{"0":54,"60":72,"120":1310,"180":423,"240":13,"780":3},"euPct":99.1,"peak":120,"peakPct":69.9,"repos":47,"excluded":1241}}},"license":"Apache-2.0","repoCount":47},{"name":"Chantico","repo":"chantico-project/chantico","lfxSlug":"chantico","source":"lfx","w":{"all":{"score":60,"breakdown":{"contributorPercentage":60,"popularityPercentage":0,"developmentPercentage":88,"securityPercentage":92},"orgs":[{"n":"Grip on Software","p":49.5},{"n":"TNO","p":42.9},{"n":"EMSEIndustrialProject","p":3.0}],"orgCount":5,"rawTopOrg":"Grip on Software","rawTopOrgPct":49.55,"contributors":21,"commits":712,"prMerged":41,"topOrg":"Grip on Software","topOrgPct":49.5,"merged":false,"othersPct":4.6,"risk":"balanced","riskLabel":"Balanced","tz":{"total":468,"hist":{"0":150,"60":152,"120":166},"euPct":100.0,"peak":120,"peakPct":35.5,"repos":1,"excluded":42}},"m12":{"score":60,"breakdown":{"contributorPercentage":60,"popularityPercentage":0,"developmentPercentage":88,"securityPercentage":92},"orgs":[{"n":"Grip on Software","p":49.5},{"n":"TNO","p":42.9},{"n":"EMSEIndustrialProject","p":3.0}],"orgCount":5,"rawTopOrg":"Grip on Software","rawTopOrgPct":49.55,"contributors":21,"commits":654,"prMerged":41,"topOrg":"Grip on Software","topOrgPct":49.5,"merged":false,"othersPct":4.6,"risk":"balanced","riskLabel":"Balanced","tz":{"total":415,"hist":{"0":133,"60":152,"120":130},"euPct":100.0,"peak":60,"peakPct":36.6,"repos":1,"excluded":41}},"m3":{"score":58,"breakdown":{"contributorPercentage":50,"popularityPercentage":0,"developmentPercentage":88,"securityPercentage":92},"orgs":[{"n":"Grip on Software","p":70.7},{"n":"TNO","p":13.1},{"n":"EMSEIndustrialProject","p":7.7}],"orgCount":5,"rawTopOrg":"Grip on Software","rawTopOrgPct":70.72,"contributors":15,"commits":149,"prMerged":27,"topOrg":"Grip on Software","topOrgPct":70.7,"merged":false,"othersPct":8.5,"risk":"concentrated","riskLabel":"Concentrated","tz":{"total":64,"hist":{"0":6,"120":58},"euPct":100.0,"peak":120,"peakPct":90.6,"repos":1,"excluded":16}}},"license":"Apache-2.0","repoCount":1}],"retrieved":"10 September 2026","windowMeta":{"all":{"label":"All time","note":"Every commit since each project began."},"m12":{"label":"Last 12 months","note":"10 Sep 2025 \u2013 10 Sep 2026."},"m3":{"label":"Last 3 months","note":"10 Jun 2026 \u2013 10 Sep 2026."}}};
+const PROJECTS = RAW.projects, WINDOWS = RAW.windows, WMETA = RAW.windowMeta;
+let WIN = "all";
+
+/* ---------- tooltip ---------- */
+const tip = document.getElementById('tip');
+function bindTip(el, html){
+  el.addEventListener('pointerenter', e => { tip.innerHTML = html; tip.classList.add('on'); move(e); });
+  el.addEventListener('pointermove', move);
+  el.addEventListener('pointerleave', () => tip.classList.remove('on'));
+  el.tabIndex = 0;
+  el.addEventListener('focus', () => {
+    tip.innerHTML = html; tip.classList.add('on');
+    const r = el.getBoundingClientRect(); place(r.left + r.width/2, r.top - 8);
+  });
+  el.addEventListener('blur', () => tip.classList.remove('on'));
+  function move(e){ place(e.clientX + 14, e.clientY + 16); }
+  function place(x, y){
+    const w = tip.offsetWidth, h = tip.offsetHeight;
+    tip.style.left = Math.max(8, Math.min(x, innerWidth - w - 8)) + 'px';
+    tip.style.top  = Math.max(8, Math.min(y, innerHeight - h - 8)) + 'px';
+  }
+}
+const fmt = n => n == null ? '—' : n.toLocaleString('en-US');
+const pct = n => n.toFixed(1) + '%';
+const offLabel = m => {
+  const s = m < 0 ? '−' : '+', a = Math.abs(m);
+  return 'UTC' + s + String(Math.floor(a/60)).padStart(2,'0') + ':' + String(a%60).padStart(2,'0');
+};
+
+/* ---------- window switcher ---------- */
+document.getElementById('wseg').innerHTML = WINDOWS.map(w =>
+  `<button type="button" data-w="${w.key}" aria-pressed="${w.key===WIN}">${w.label}</button>`).join('');
+document.querySelectorAll('#wseg button').forEach(b =>
+  b.addEventListener('click', () => { WIN = b.dataset.w; render(); }));
+
+/* ---------- findings ---------- */
+function renderFindings(){
+  const rows = PROJECTS.map(p => p.w[WIN]);
+  const sapLed  = rows.filter(r => r.topOrg === 'SAP').length;
+  const single  = rows.filter(r => r.risk === 'single').length;
+  const eu      = [...rows].map(r => r.tz.euPct).sort((a,b)=>a-b)[Math.floor(rows.length/2)];
+  const commits = rows.reduce((s,r) => s + (r.commits||0), 0);
+  document.getElementById('findings').innerHTML = [
+    { cls:'is-risk', big:`${sapLed}<small> / 7</small>`, lede:'projects led by SAP',
+      sub: sapLed === 7 ? 'SAP is the largest contributing company in every project.'
+        : `SAP is the largest contributing company in ${sapLed} of the seven in this window.` },
+    { cls:'is-risk', big:`${single}<small> / 7</small>`, lede:'are effectively single-vendor',
+      sub:'One company at or above 75% of all contribution.' },
+    { cls:'is-accent', big:`${eu.toFixed(0)}<small>%</small>`, lede:'of commits on European hours',
+      sub:'Median across the seven. Every project peaks at UTC+02:00 — Central European summer time.' },
+    { cls:'', big:fmt(commits), lede:'commits in this window',
+      sub:'Across all repositories of all seven projects. All seven are Apache-2.0 licensed.' },
+  ].map(f => `<div class="finding ${f.cls}">
+      <div class="big">${f.big}</div><div class="lede">${f.lede}</div>
+      <div class="sub">${f.sub}</div></div>`).join('');
+}
+
+/* ---------- table ---------- */
+function renderTable(){
+  const tbody = document.querySelector('#tbl tbody');
+  tbody.innerHTML = '';
+  PROJECTS.forEach(p => {
+    const d = p.w[WIN];
+    const cls  = d.risk === 'single' ? 'risk' : d.risk === 'concentrated' ? 'warn' : 'ok';
+    const fill = d.risk === 'single' ? 'f-risk' : d.risk === 'concentrated' ? 'f-warn' : 'f-ok';
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td class="l"><div class="proj">
+          <b>${p.name}${p.source === 'github' ? '<sup class="fn" data-g="1">G</sup>' : ''}</b>
+          <a href="https://github.com/${p.repo}" target="_blank" rel="noopener">${p.repo}</a>
+        </div></td>
+      <td class="l"><div class="conc">
+          <span class="who">${d.topOrg}${d.merged ? '<sup class="fn" data-m="1">M</sup>' : ''}
+            <span class="chip ${cls}">${d.riskLabel}</span></span>
+          <span class="gauge" data-gauge="1">
+            <span class="fill ${fill}" style="width:${d.topOrgPct}%"></span>
+            <span class="tick" style="left:50%"></span>
+            <span class="tick t75" style="left:75%"></span>
+          </span>
+          <span class="val">${pct(d.topOrgPct)}</span>
+        </div></td>
+      <td class="num">${d.orgCount}</td>
+      <td class="num">${fmt(d.contributors)}</td>
+      <td class="num">${fmt(d.commits)}</td>
+      <td class="num">${fmt(d.prMerged)}</td>
+      <td>${d.score == null ? '<span class="dash" data-noscore="1">—</span>'
+            : `<span class="score" data-score="1"><b>${d.score}</b><s>/100</s></span>`}</td>
+      <td><span class="chip plain">${p.license}</span></td>
+      <td class="tzcell">${d.tz.total ? offLabel(d.tz.peak).replace('UTC','') +
+            ` <em>${d.tz.peakPct.toFixed(0)}%</em>` : '<span class="dash">—</span>'}</td>`;
+    tbody.appendChild(tr);
+
+    bindTip(tr.querySelector('[data-gauge]'),
+      `<b>${p.name}</b> · ${WMETA[WIN].label}<br><span class="t-mono">${pct(d.topOrgPct)}</span>
+       of contribution from ${d.topOrg}<br><span class="t-mono">${d.orgCount}</span> companies ·
+       <span class="t-mono">${fmt(d.contributors)}</span> contributors`);
+
+    const m = tr.querySelector('[data-m]');
+    if (m) bindTip(m, `LFX lists several SAP entities separately.<br>Its raw top entity:
+      <b>${d.rawTopOrg}</b> <span class="t-mono">${pct(d.rawTopOrgPct)}</span><br>
+      Merged as one company: <span class="t-mono">${pct(d.topOrgPct)}</span>`);
+
+    const g = tr.querySelector('[data-g]');
+    if (g) bindTip(g, `Not tracked as a project in LFX Insights.<br>Figures from the GitHub API and
+      the git history of all ${p.repoCount} repositories in the org; company shares from
+      commit-author email domains (${d.attributablePct}% of commits attributable).`);
+
+    const s = tr.querySelector('[data-score]');
+    if (s){ const b = d.breakdown;
+      bindTip(s, `<b>LFX health ${d.score}/100</b><br>
+        Contributors <span class="t-mono">${b.contributorPercentage}</span> ·
+        Popularity <span class="t-mono">${b.popularityPercentage}</span><br>
+        Development <span class="t-mono">${b.developmentPercentage}</span> ·
+        Security <span class="t-mono">${b.securityPercentage}</span>`); }
+
+    const ns = tr.querySelector('[data-noscore]');
+    if (ns) bindTip(ns, 'No LFX health score — Garden Linux is not a tracked LFX Insights project.');
+  });
+}
+
+/* ---------- composition ---------- */
+function renderComp(){
+  document.getElementById('comp').innerHTML = PROJECTS.map(p => {
+    const d = p.w[WIN];
+    const segs = d.orgs.map((o,i) => ({ n:o.n, p:o.p, c:'s'+(i+1) }));
+    if (d.othersPct > 0.05) segs.push({ n:'All other companies', p:d.othersPct, c:'s4' });
+    const bars = segs.map(s => {
+      const room  = s.p >= 20 || (s.p >= 14 && s.n.length <= 12);
+      const label = s.p < 6 ? '' : (room ? s.n + ' ' : '') + s.p.toFixed(0) + '%';
+      return `<span class="seg ${s.c}" style="flex:${s.p.toFixed(2)}" data-seg
+          data-n="${s.n.replace(/"/g,'&quot;')}" data-p="${s.p.toFixed(1)}">${label}</span>`;
+    }).join('');
+    return `<div class="comp-row">
+        <div class="nm">${p.name}<span>${d.orgCount} companies</span></div>
+        <div class="stack">${bars}</div></div>`;
+  }).join('');
+  document.querySelectorAll('[data-seg]').forEach(el =>
+    bindTip(el, `<b>${el.dataset.n}</b><br><span class="t-mono">${el.dataset.p}%</span> of contribution`));
+}
+
+/* ---------- meridian ---------- */
+function renderMeridian(){
+  const LO = -9*60, HI = 13*60;
+  const W = 980, L = 190, RCOL = 152, ROW = 36, TOP = 30, AXIS = 32;
+  const H = TOP + PROJECTS.length*ROW + AXIS, plotW = W - L - RCOL;
+  const x = m => L + (m - LO)/(HI - LO)*plotW;
+  const MAX = 75, BAR = 27;
+  const s = [`<svg class="meridian" viewBox="0 0 ${W} ${H}" role="img" width="${W}"
+    aria-label="Share of commits by author UTC offset for each project; all seven peak in the Central European band.">`];
+
+  const bx = x(-60), bw = x(180) - x(-60);
+  s.push(`<rect x="${bx}" y="${TOP-8}" width="${bw}" height="${PROJECTS.length*ROW+4}" fill="var(--band)" rx="3"></rect>`);
+  s.push(`<text class="m-band-label" x="${bx+bw/2}" y="${TOP-14}" text-anchor="middle">EUROPE  UTC−01 → +03</text>`);
+
+  PROJECTS.forEach((p,i) => {
+    const d = p.w[WIN].tz, base = TOP + i*ROW + ROW - 10;
+    s.push(`<line class="m-base" x1="${L}" y1="${base+.5}" x2="${L+plotW}" y2="${base+.5}"></line>`);
+    s.push(`<text class="m-name" x="${L-14}" y="${base-3}" text-anchor="end">${p.name}</text>`);
+    Object.entries(d.hist || {}).forEach(([mStr,c]) => {
+      const m = +mStr, pc = 100*c/d.total;
+      const h = Math.max(2.5, Math.min(pc, MAX)/MAX*BAR), w = 11;
+      s.push(`<rect class="m-bar" x="${(x(m)-w/2).toFixed(1)}" y="${(base-h).toFixed(1)}"
+        width="${w}" height="${h.toFixed(1)}" rx="2" data-bar
+        data-t="${p.name}|${offLabel(m)}|${pc.toFixed(1)}|${c}"></rect>`);
+    });
+    s.push(d.total
+      ? `<text class="m-peak" x="${L+plotW+14}" y="${base-3}"><tspan class="m-peak-n">${
+          d.peakPct.toFixed(0)}%</tspan> at ${offLabel(d.peak)} <tspan class="m-n">n=${d.total.toLocaleString('en-US')}</tspan></text>`
+      : `<text class="m-peak" x="${L+plotW+14}" y="${base-3}">no commits</text>`);
+  });
+
+  const ay = TOP + PROJECTS.length*ROW + 2;
+  for (let hh = -9; hh <= 13; hh += 3)
+    s.push(`<text class="m-axis" x="${x(hh*60)}" y="${ay+6}" text-anchor="middle">${
+      (hh<0?'−':'+') + String(Math.abs(hh)).padStart(2,'0')}</text>`);
+  s.push(`<text class="m-axis" x="${L-14}" y="${ay+6}" text-anchor="end">UTC offset</text></svg>`);
+  document.getElementById('mer').innerHTML = s.join('');
+
+  document.querySelectorAll('[data-bar]').forEach(el => {
+    const [n,o,pc,c] = el.dataset.t.split('|');
+    bindTip(el, `<b>${n}</b><br><span class="t-mono">${o}</span><br>
+      <span class="t-mono">${pc}%</span> of commits · <span class="t-mono">${(+c).toLocaleString('en-US')}</span> commits`);
+  });
+}
+
+function render(){
+  document.querySelectorAll('#wseg button').forEach(b =>
+    b.setAttribute('aria-pressed', String(b.dataset.w === WIN)));
+  document.getElementById('when').innerHTML = `<b>${WMETA[WIN].label}</b> — ${WMETA[WIN].note}`;
+  document.getElementById('repocount').textContent =
+    PROJECTS.reduce((s,p) => s + (p.repoCount||0), 0) + ' across 7 projects';
+  tip.classList.remove('on');
+  renderFindings(); renderTable(); renderComp(); renderMeridian();
+}
+render();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1159 @@
+{
+ "windows": [
+  {
+   "key": "all",
+   "label": "All time"
+  },
+  {
+   "key": "m12",
+   "label": "Last 12 months"
+  },
+  {
+   "key": "m3",
+   "label": "Last 3 months"
+  }
+ ],
+ "projects": [
+  {
+   "name": "Luigi",
+   "repo": "luigi-project/luigi",
+   "lfxSlug": "luigi",
+   "source": "lfx",
+   "w": {
+    "all": {
+     "score": 78,
+     "breakdown": {
+      "contributorPercentage": 50,
+      "popularityPercentage": 93,
+      "developmentPercentage": 88,
+      "securityPercentage": 82
+     },
+     "orgs": [
+      {
+       "n": "SAP",
+       "p": 87.1
+      },
+      {
+       "n": "Coresystems",
+       "p": 10.3
+      },
+      {
+       "n": "Box, Inc.",
+       "p": 1.5
+      }
+     ],
+     "orgCount": 20,
+     "rawTopOrg": "SAP",
+     "rawTopOrgPct": 62.01,
+     "contributors": 170,
+     "commits": 24384,
+     "prMerged": 2048,
+     "topOrg": "SAP",
+     "topOrgPct": 87.1,
+     "merged": true,
+     "othersPct": 1.1,
+     "risk": "single",
+     "riskLabel": "Single-vendor",
+     "tz": {
+      "total": 2828,
+      "hist": {
+       "-420": 1,
+       "-300": 1,
+       "-180": 1,
+       "60": 1067,
+       "120": 1734,
+       "180": 11,
+       "210": 1,
+       "300": 1,
+       "330": 8,
+       "420": 1,
+       "480": 2
+      },
+      "euPct": 99.4,
+      "peak": 120,
+      "peakPct": 61.3,
+      "repos": 5,
+      "excluded": 523
+     }
+    },
+    "m12": {
+     "score": 68,
+     "breakdown": {
+      "contributorPercentage": 50,
+      "popularityPercentage": 53,
+      "developmentPercentage": 88,
+      "securityPercentage": 82
+     },
+     "orgs": [
+      {
+       "n": "SAP",
+       "p": 100.0
+      },
+      {
+       "n": "OpenMFP",
+       "p": 0.0
+      }
+     ],
+     "orgCount": 2,
+     "rawTopOrg": "SAP SE",
+     "rawTopOrgPct": 53.72,
+     "contributors": 24,
+     "commits": 2965,
+     "prMerged": 635,
+     "topOrg": "SAP",
+     "topOrgPct": 100.0,
+     "merged": true,
+     "othersPct": 0.0,
+     "risk": "single",
+     "riskLabel": "Single-vendor",
+     "tz": {
+      "total": 456,
+      "hist": {
+       "-180": 1,
+       "60": 142,
+       "120": 309,
+       "180": 1,
+       "300": 1,
+       "330": 1,
+       "480": 1
+      },
+      "euPct": 99.1,
+      "peak": 120,
+      "peakPct": 67.8,
+      "repos": 5,
+      "excluded": 232
+     }
+    },
+    "m3": {
+     "score": 59,
+     "breakdown": {
+      "contributorPercentage": 50,
+      "popularityPercentage": 7,
+      "developmentPercentage": 96,
+      "securityPercentage": 82
+     },
+     "orgs": [
+      {
+       "n": "SAP",
+       "p": 100.0
+      }
+     ],
+     "orgCount": 1,
+     "rawTopOrg": "SAP SE",
+     "rawTopOrgPct": 64.17,
+     "contributors": 16,
+     "commits": 553,
+     "prMerged": 195,
+     "topOrg": "SAP",
+     "topOrgPct": 100.0,
+     "merged": true,
+     "othersPct": 0.0,
+     "risk": "single",
+     "riskLabel": "Single-vendor",
+     "tz": {
+      "total": 158,
+      "hist": {
+       "-180": 1,
+       "120": 155,
+       "300": 1,
+       "330": 1
+      },
+      "euPct": 98.1,
+      "peak": 120,
+      "peakPct": 98.1,
+      "repos": 5,
+      "excluded": 60
+     }
+    }
+   },
+   "license": "Apache-2.0",
+   "repoCount": 5
+  },
+  {
+   "name": "IronCore",
+   "repo": "ironcore-dev/ironcore",
+   "lfxSlug": "ironcore",
+   "source": "lfx",
+   "w": {
+    "all": {
+     "score": 72,
+     "breakdown": {
+      "contributorPercentage": 65,
+      "popularityPercentage": 53,
+      "developmentPercentage": 88,
+      "securityPercentage": 82
+     },
+     "orgs": [
+      {
+       "n": "SAP",
+       "p": 86.4
+      },
+      {
+       "n": "LOVOO",
+       "p": 3.6
+      },
+      {
+       "n": "Individual - No Account",
+       "p": 3.4
+      }
+     ],
+     "orgCount": 43,
+     "rawTopOrg": "SAP SE",
+     "rawTopOrgPct": 86.32,
+     "contributors": 266,
+     "commits": 17636,
+     "prMerged": 8648,
+     "topOrg": "SAP",
+     "topOrgPct": 86.4,
+     "merged": false,
+     "othersPct": 6.6,
+     "risk": "single",
+     "riskLabel": "Single-vendor",
+     "tz": {
+      "total": 7555,
+      "hist": {
+       "-420": 12,
+       "-360": 1,
+       "-300": 2,
+       "-240": 5,
+       "0": 283,
+       "60": 2377,
+       "120": 4128,
+       "180": 190,
+       "330": 550,
+       "480": 7
+      },
+      "euPct": 92.4,
+      "peak": 120,
+      "peakPct": 54.6,
+      "repos": 45,
+      "excluded": 5446
+     }
+    },
+    "m12": {
+     "score": 71,
+     "breakdown": {
+      "contributorPercentage": 65,
+      "popularityPercentage": 47,
+      "developmentPercentage": 88,
+      "securityPercentage": 82
+     },
+     "orgs": [
+      {
+       "n": "SAP",
+       "p": 77.3
+      },
+      {
+       "n": "LOVOO",
+       "p": 8.7
+      },
+      {
+       "n": "KubeForge",
+       "p": 6.0
+      }
+     ],
+     "orgCount": 28,
+     "rawTopOrg": "SAP SE",
+     "rawTopOrgPct": 77.22,
+     "contributors": 173,
+     "commits": 5182,
+     "prMerged": 2972,
+     "topOrg": "SAP",
+     "topOrgPct": 77.3,
+     "merged": false,
+     "othersPct": 8.0,
+     "risk": "single",
+     "riskLabel": "Single-vendor",
+     "tz": {
+      "total": 2290,
+      "hist": {
+       "-360": 1,
+       "-300": 1,
+       "-240": 1,
+       "0": 54,
+       "60": 670,
+       "120": 1486,
+       "180": 9,
+       "330": 62,
+       "480": 6
+      },
+      "euPct": 96.9,
+      "peak": 120,
+      "peakPct": 64.9,
+      "repos": 45,
+      "excluded": 1507
+     }
+    },
+    "m3": {
+     "score": 71,
+     "breakdown": {
+      "contributorPercentage": 65,
+      "popularityPercentage": 40,
+      "developmentPercentage": 96,
+      "securityPercentage": 82
+     },
+     "orgs": [
+      {
+       "n": "SAP",
+       "p": 89.8
+      },
+      {
+       "n": "Individual - No Account",
+       "p": 4.4
+      },
+      {
+       "n": "LOVOO",
+       "p": 1.4
+      }
+     ],
+     "orgCount": 14,
+     "rawTopOrg": "SAP SE",
+     "rawTopOrgPct": 89.82,
+     "contributors": 116,
+     "commits": 1578,
+     "prMerged": 1102,
+     "topOrg": "SAP",
+     "topOrgPct": 89.8,
+     "merged": false,
+     "othersPct": 4.4,
+     "risk": "single",
+     "riskLabel": "Single-vendor",
+     "tz": {
+      "total": 912,
+      "hist": {
+       "-240": 1,
+       "0": 4,
+       "60": 36,
+       "120": 836,
+       "180": 8,
+       "330": 25,
+       "480": 2
+      },
+      "euPct": 96.9,
+      "peak": 120,
+      "peakPct": 91.7,
+      "repos": 45,
+      "excluded": 505
+     }
+    }
+   },
+   "license": "Apache-2.0",
+   "repoCount": 45
+  },
+  {
+   "name": "Open Component Model",
+   "repo": "open-component-model/open-component-model",
+   "lfxSlug": "open-component-model",
+   "source": "lfx",
+   "w": {
+    "all": {
+     "score": 71,
+     "breakdown": {
+      "contributorPercentage": 60,
+      "popularityPercentage": 47,
+      "developmentPercentage": 88,
+      "securityPercentage": 87
+     },
+     "orgs": [
+      {
+       "n": "SAP",
+       "p": 75.1
+      },
+      {
+       "n": "Kubermatic",
+       "p": 11.8
+      },
+      {
+       "n": "Garden Linux",
+       "p": 5.4
+      }
+     ],
+     "orgCount": 21,
+     "rawTopOrg": "SAP SE",
+     "rawTopOrgPct": 74.91,
+     "contributors": 166,
+     "commits": 15446,
+     "prMerged": 4951,
+     "topOrg": "SAP",
+     "topOrgPct": 75.1,
+     "merged": false,
+     "othersPct": 7.7,
+     "risk": "single",
+     "riskLabel": "Single-vendor",
+     "tz": {
+      "total": 5175,
+      "hist": {
+       "-480": 3,
+       "-420": 2,
+       "0": 93,
+       "60": 1881,
+       "120": 3165,
+       "180": 30,
+       "330": 1
+      },
+      "euPct": 99.9,
+      "peak": 120,
+      "peakPct": 61.2,
+      "repos": 7,
+      "excluded": 5375
+     }
+    },
+    "m12": {
+     "score": 67,
+     "breakdown": {
+      "contributorPercentage": 60,
+      "popularityPercentage": 33,
+      "developmentPercentage": 88,
+      "securityPercentage": 87
+     },
+     "orgs": [
+      {
+       "n": "SAP",
+       "p": 72.2
+      },
+      {
+       "n": "Kubermatic",
+       "p": 15.5
+      },
+      {
+       "n": "Garden Linux",
+       "p": 5.4
+      }
+     ],
+     "orgCount": 15,
+     "rawTopOrg": "SAP SE",
+     "rawTopOrgPct": 72.16,
+     "contributors": 97,
+     "commits": 3973,
+     "prMerged": 2257,
+     "topOrg": "SAP",
+     "topOrgPct": 72.2,
+     "merged": false,
+     "othersPct": 6.9,
+     "risk": "concentrated",
+     "riskLabel": "Concentrated",
+     "tz": {
+      "total": 1663,
+      "hist": {
+       "-480": 2,
+       "0": 2,
+       "60": 740,
+       "120": 911,
+       "180": 8
+      },
+      "euPct": 99.9,
+      "peak": 120,
+      "peakPct": 54.8,
+      "repos": 7,
+      "excluded": 2883
+     }
+    },
+    "m3": {
+     "score": 63,
+     "breakdown": {
+      "contributorPercentage": 60,
+      "popularityPercentage": 13,
+      "developmentPercentage": 92,
+      "securityPercentage": 87
+     },
+     "orgs": [
+      {
+       "n": "SAP",
+       "p": 61.7
+      },
+      {
+       "n": "Kubermatic",
+       "p": 18.4
+      },
+      {
+       "n": "Matthias Bruns",
+       "p": 14.1
+      }
+     ],
+     "orgCount": 10,
+     "rawTopOrg": "SAP SE",
+     "rawTopOrgPct": 61.74,
+     "contributors": 50,
+     "commits": 886,
+     "prMerged": 493,
+     "topOrg": "SAP",
+     "topOrgPct": 61.7,
+     "merged": false,
+     "othersPct": 5.8,
+     "risk": "concentrated",
+     "riskLabel": "Concentrated",
+     "tz": {
+      "total": 380,
+      "hist": {
+       "120": 377,
+       "180": 3
+      },
+      "euPct": 100.0,
+      "peak": 120,
+      "peakPct": 99.2,
+      "repos": 7,
+      "excluded": 907
+     }
+    }
+   },
+   "license": "Apache-2.0",
+   "repoCount": 7
+  },
+  {
+   "name": "Greenhouse",
+   "repo": "cloudoperators/greenhouse",
+   "lfxSlug": "greenhouse",
+   "source": "lfx",
+   "w": {
+    "all": {
+     "score": 77,
+     "breakdown": {
+      "contributorPercentage": 70,
+      "popularityPercentage": 73,
+      "developmentPercentage": 84,
+      "securityPercentage": 79
+     },
+     "orgs": [
+      {
+       "n": "SAP",
+       "p": 72.6
+      },
+      {
+       "n": "MphasiS BFL Ltd.",
+       "p": 9.2
+      },
+      {
+       "n": "Gymnasion",
+       "p": 5.8
+      }
+     ],
+     "orgCount": 15,
+     "rawTopOrg": "SAP SE",
+     "rawTopOrgPct": 56.8,
+     "contributors": 186,
+     "commits": 17303,
+     "prMerged": 3824,
+     "topOrg": "SAP",
+     "topOrgPct": 72.6,
+     "merged": true,
+     "othersPct": 12.4,
+     "risk": "concentrated",
+     "riskLabel": "Concentrated",
+     "tz": {
+      "total": 10193,
+      "hist": {
+       "-360": 4,
+       "-300": 1,
+       "0": 3565,
+       "60": 2506,
+       "120": 4088,
+       "180": 1,
+       "240": 3,
+       "300": 5,
+       "330": 20
+      },
+      "euPct": 99.7,
+      "peak": 120,
+      "peakPct": 40.1,
+      "repos": 3,
+      "excluded": 1531
+     }
+    },
+    "m12": {
+     "score": 73,
+     "breakdown": {
+      "contributorPercentage": 70,
+      "popularityPercentage": 60,
+      "developmentPercentage": 84,
+      "securityPercentage": 79
+     },
+     "orgs": [
+      {
+       "n": "SAP",
+       "p": 75.5
+      },
+      {
+       "n": "MphasiS BFL Ltd.",
+       "p": 13.4
+      },
+      {
+       "n": "Freiberuflich",
+       "p": 7.9
+      }
+     ],
+     "orgCount": 11,
+     "rawTopOrg": "SAP SE",
+     "rawTopOrgPct": 61.83,
+     "contributors": 155,
+     "commits": 2777,
+     "prMerged": 1498,
+     "topOrg": "SAP",
+     "topOrgPct": 75.5,
+     "merged": true,
+     "othersPct": 3.2,
+     "risk": "single",
+     "riskLabel": "Single-vendor",
+     "tz": {
+      "total": 2698,
+      "hist": {
+       "-360": 4,
+       "-300": 1,
+       "0": 1169,
+       "60": 541,
+       "120": 975,
+       "180": 1,
+       "240": 3,
+       "330": 4
+      },
+      "euPct": 99.6,
+      "peak": 0,
+      "peakPct": 43.3,
+      "repos": 3,
+      "excluded": 855
+     }
+    },
+    "m3": {
+     "score": 65,
+     "breakdown": {
+      "contributorPercentage": 70,
+      "popularityPercentage": 13,
+      "developmentPercentage": 96,
+      "securityPercentage": 79
+     },
+     "orgs": [
+      {
+       "n": "SAP",
+       "p": 67.8
+      },
+      {
+       "n": "Freiberuflich",
+       "p": 14.8
+      },
+      {
+       "n": "MphasiS BFL Ltd.",
+       "p": 11.2
+      }
+     ],
+     "orgCount": 8,
+     "rawTopOrg": "SAP SE",
+     "rawTopOrgPct": 62.1,
+     "contributors": 116,
+     "commits": 802,
+     "prMerged": 391,
+     "topOrg": "SAP",
+     "topOrgPct": 67.8,
+     "merged": true,
+     "othersPct": 6.2,
+     "risk": "concentrated",
+     "riskLabel": "Concentrated",
+     "tz": {
+      "total": 710,
+      "hist": {
+       "-360": 4,
+       "0": 256,
+       "120": 444,
+       "180": 1,
+       "240": 3,
+       "330": 2
+      },
+      "euPct": 98.7,
+      "peak": 120,
+      "peakPct": 62.5,
+      "repos": 3,
+      "excluded": 255
+     }
+    }
+   },
+   "license": "Apache-2.0",
+   "repoCount": 3
+  },
+  {
+   "name": "Garden Linux",
+   "repo": "gardenlinux/gardenlinux",
+   "lfxSlug": null,
+   "source": "github",
+   "w": {
+    "all": {
+     "orgs": [
+      {
+       "n": "SAP",
+       "p": 64.4
+      },
+      {
+       "n": "B1 Systems",
+       "p": 22.3
+      },
+      {
+       "n": "credativ",
+       "p": 10.0
+      }
+     ],
+     "orgCount": 25,
+     "contributors": 110,
+     "commits": 4170,
+     "attributablePct": 67,
+     "score": null,
+     "breakdown": {},
+     "rawTopOrg": null,
+     "rawTopOrgPct": null,
+     "prMerged": 2638,
+     "topOrg": "SAP",
+     "topOrgPct": 64.4,
+     "merged": false,
+     "othersPct": 3.3,
+     "risk": "concentrated",
+     "riskLabel": "Concentrated",
+     "tz": {
+      "total": 13754,
+      "hist": {
+       "-480": 17,
+       "-420": 30,
+       "-360": 2,
+       "-300": 6,
+       "-240": 30,
+       "-180": 7,
+       "0": 1178,
+       "60": 4658,
+       "120": 7370,
+       "180": 95,
+       "240": 1,
+       "330": 31,
+       "480": 135,
+       "540": 1,
+       "660": 1,
+       "720": 150,
+       "780": 42
+      },
+      "euPct": 96.7,
+      "peak": 120,
+      "peakPct": 53.6,
+      "repos": 227,
+      "excluded": 4189
+     }
+    },
+    "m12": {
+     "orgs": [
+      {
+       "n": "B1 Systems",
+       "p": 88.1
+      },
+      {
+       "n": "SAP",
+       "p": 11.9
+      }
+     ],
+     "orgCount": 2,
+     "contributors": 23,
+     "commits": 866,
+     "attributablePct": 56,
+     "score": null,
+     "breakdown": {},
+     "rawTopOrg": null,
+     "rawTopOrgPct": null,
+     "prMerged": 703,
+     "topOrg": "B1 Systems",
+     "topOrgPct": 88.1,
+     "merged": false,
+     "othersPct": 0.0,
+     "risk": "single",
+     "riskLabel": "Single-vendor",
+     "tz": {
+      "total": 4868,
+      "hist": {
+       "0": 190,
+       "60": 1877,
+       "120": 2753,
+       "180": 27,
+       "330": 21
+      },
+      "euPct": 99.6,
+      "peak": 120,
+      "peakPct": 56.6,
+      "repos": 227,
+      "excluded": 2148
+     }
+    },
+    "m3": {
+     "orgs": [
+      {
+       "n": "B1 Systems",
+       "p": 96.8
+      },
+      {
+       "n": "SAP",
+       "p": 3.2
+      }
+     ],
+     "orgCount": 2,
+     "contributors": 14,
+     "commits": 217,
+     "attributablePct": 72,
+     "score": null,
+     "breakdown": {},
+     "rawTopOrg": null,
+     "rawTopOrgPct": null,
+     "prMerged": 120,
+     "topOrg": "B1 Systems",
+     "topOrgPct": 96.8,
+     "merged": false,
+     "othersPct": 0.0,
+     "risk": "single",
+     "riskLabel": "Single-vendor",
+     "tz": {
+      "total": 1373,
+      "hist": {
+       "0": 58,
+       "60": 23,
+       "120": 1250,
+       "180": 21,
+       "330": 21
+      },
+      "euPct": 98.5,
+      "peak": 120,
+      "peakPct": 91.0,
+      "repos": 227,
+      "excluded": 664
+     }
+    }
+   },
+   "license": "Apache-2.0",
+   "repoCount": 227
+  },
+  {
+   "name": "Platform Mesh",
+   "repo": "platform-mesh/platform-mesh",
+   "lfxSlug": "platform-mesh",
+   "source": "lfx",
+   "w": {
+    "all": {
+     "score": 72,
+     "breakdown": {
+      "contributorPercentage": 60,
+      "popularityPercentage": 53,
+      "developmentPercentage": 84,
+      "securityPercentage": 89
+     },
+     "orgs": [
+      {
+       "n": "SAP",
+       "p": 61.9
+      },
+      {
+       "n": "CST",
+       "p": 15.9
+      },
+      {
+       "n": "Kubermatic",
+       "p": 8.4
+      }
+     ],
+     "orgCount": 19,
+     "rawTopOrg": "SAP SE",
+     "rawTopOrgPct": 61.86,
+     "contributors": 139,
+     "commits": 18572,
+     "prMerged": 2930,
+     "topOrg": "SAP",
+     "topOrgPct": 61.9,
+     "merged": false,
+     "othersPct": 13.8,
+     "risk": "concentrated",
+     "riskLabel": "Concentrated",
+     "tz": {
+      "total": 8000,
+      "hist": {
+       "-480": 16,
+       "-420": 5,
+       "-300": 2,
+       "-240": 26,
+       "0": 390,
+       "60": 1880,
+       "120": 4088,
+       "180": 1335,
+       "240": 201,
+       "780": 57
+      },
+      "euPct": 96.2,
+      "peak": 120,
+      "peakPct": 51.1,
+      "repos": 47,
+      "excluded": 13418
+     }
+    },
+    "m12": {
+     "score": 72,
+     "breakdown": {
+      "contributorPercentage": 60,
+      "popularityPercentage": 53,
+      "developmentPercentage": 84,
+      "securityPercentage": 89
+     },
+     "orgs": [
+      {
+       "n": "SAP",
+       "p": 61.5
+      },
+      {
+       "n": "CST",
+       "p": 15.0
+      },
+      {
+       "n": "Kubermatic",
+       "p": 9.5
+      }
+     ],
+     "orgCount": 18,
+     "rawTopOrg": "SAP SE",
+     "rawTopOrgPct": 61.53,
+     "contributors": 125,
+     "commits": 15845,
+     "prMerged": 2760,
+     "topOrg": "SAP",
+     "topOrgPct": 61.5,
+     "merged": false,
+     "othersPct": 14.0,
+     "risk": "concentrated",
+     "riskLabel": "Concentrated",
+     "tz": {
+      "total": 6139,
+      "hist": {
+       "-420": 5,
+       "0": 355,
+       "60": 1653,
+       "120": 2881,
+       "180": 1021,
+       "240": 167,
+       "780": 57
+      },
+      "euPct": 96.3,
+      "peak": 120,
+      "peakPct": 46.9,
+      "repos": 47,
+      "excluded": 11875
+     }
+    },
+    "m3": {
+     "score": 72,
+     "breakdown": {
+      "contributorPercentage": 65,
+      "popularityPercentage": 40,
+      "developmentPercentage": 92,
+      "securityPercentage": 89
+     },
+     "orgs": [
+      {
+       "n": "SAP",
+       "p": 46.0
+      },
+      {
+       "n": "Kubermatic",
+       "p": 21.5
+      },
+      {
+       "n": "CST",
+       "p": 11.1
+      }
+     ],
+     "orgCount": 16,
+     "rawTopOrg": "SAP SE",
+     "rawTopOrgPct": 46.05,
+     "contributors": 84,
+     "commits": 3630,
+     "prMerged": 793,
+     "topOrg": "SAP",
+     "topOrgPct": 46.0,
+     "merged": false,
+     "othersPct": 21.4,
+     "risk": "balanced",
+     "riskLabel": "Balanced",
+     "tz": {
+      "total": 1875,
+      "hist": {
+       "0": 54,
+       "60": 72,
+       "120": 1310,
+       "180": 423,
+       "240": 13,
+       "780": 3
+      },
+      "euPct": 99.1,
+      "peak": 120,
+      "peakPct": 69.9,
+      "repos": 47,
+      "excluded": 1241
+     }
+    }
+   },
+   "license": "Apache-2.0",
+   "repoCount": 47
+  },
+  {
+   "name": "Chantico",
+   "repo": "chantico-project/chantico",
+   "lfxSlug": "chantico",
+   "source": "lfx",
+   "w": {
+    "all": {
+     "score": 60,
+     "breakdown": {
+      "contributorPercentage": 60,
+      "popularityPercentage": 0,
+      "developmentPercentage": 88,
+      "securityPercentage": 92
+     },
+     "orgs": [
+      {
+       "n": "Grip on Software",
+       "p": 49.5
+      },
+      {
+       "n": "TNO",
+       "p": 42.9
+      },
+      {
+       "n": "EMSEIndustrialProject",
+       "p": 3.0
+      }
+     ],
+     "orgCount": 5,
+     "rawTopOrg": "Grip on Software",
+     "rawTopOrgPct": 49.55,
+     "contributors": 21,
+     "commits": 712,
+     "prMerged": 41,
+     "topOrg": "Grip on Software",
+     "topOrgPct": 49.5,
+     "merged": false,
+     "othersPct": 4.6,
+     "risk": "balanced",
+     "riskLabel": "Balanced",
+     "tz": {
+      "total": 468,
+      "hist": {
+       "0": 150,
+       "60": 152,
+       "120": 166
+      },
+      "euPct": 100.0,
+      "peak": 120,
+      "peakPct": 35.5,
+      "repos": 1,
+      "excluded": 42
+     }
+    },
+    "m12": {
+     "score": 60,
+     "breakdown": {
+      "contributorPercentage": 60,
+      "popularityPercentage": 0,
+      "developmentPercentage": 88,
+      "securityPercentage": 92
+     },
+     "orgs": [
+      {
+       "n": "Grip on Software",
+       "p": 49.5
+      },
+      {
+       "n": "TNO",
+       "p": 42.9
+      },
+      {
+       "n": "EMSEIndustrialProject",
+       "p": 3.0
+      }
+     ],
+     "orgCount": 5,
+     "rawTopOrg": "Grip on Software",
+     "rawTopOrgPct": 49.55,
+     "contributors": 21,
+     "commits": 654,
+     "prMerged": 41,
+     "topOrg": "Grip on Software",
+     "topOrgPct": 49.5,
+     "merged": false,
+     "othersPct": 4.6,
+     "risk": "balanced",
+     "riskLabel": "Balanced",
+     "tz": {
+      "total": 415,
+      "hist": {
+       "0": 133,
+       "60": 152,
+       "120": 130
+      },
+      "euPct": 100.0,
+      "peak": 60,
+      "peakPct": 36.6,
+      "repos": 1,
+      "excluded": 41
+     }
+    },
+    "m3": {
+     "score": 58,
+     "breakdown": {
+      "contributorPercentage": 50,
+      "popularityPercentage": 0,
+      "developmentPercentage": 88,
+      "securityPercentage": 92
+     },
+     "orgs": [
+      {
+       "n": "Grip on Software",
+       "p": 70.7
+      },
+      {
+       "n": "TNO",
+       "p": 13.1
+      },
+      {
+       "n": "EMSEIndustrialProject",
+       "p": 7.7
+      }
+     ],
+     "orgCount": 5,
+     "rawTopOrg": "Grip on Software",
+     "rawTopOrgPct": 70.72,
+     "contributors": 15,
+     "commits": 149,
+     "prMerged": 27,
+     "topOrg": "Grip on Software",
+     "topOrgPct": 70.7,
+     "merged": false,
+     "othersPct": 8.5,
+     "risk": "concentrated",
+     "riskLabel": "Concentrated",
+     "tz": {
+      "total": 64,
+      "hist": {
+       "0": 6,
+       "120": 58
+      },
+      "euPct": 100.0,
+      "peak": 120,
+      "peakPct": 90.6,
+      "repos": 1,
+      "excluded": 16
+     }
+    }
+   },
+   "license": "Apache-2.0",
+   "repoCount": 1
+  }
+ ],
+ "retrieved": "10 September 2026",
+ "windowMeta": {
+  "all": {
+   "label": "All time",
+   "note": "Every commit since each project began."
+  },
+  "m12": {
+   "label": "Last 12 months",
+   "note": "10 Sep 2025 \u2013 10 Sep 2026."
+  },
+  "m3": {
+   "label": "Last 3 months",
+   "note": "10 Jun 2026 \u2013 10 Sep 2026."
+  }
+ }
+}
